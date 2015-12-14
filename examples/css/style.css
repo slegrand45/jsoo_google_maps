@@ -6,10 +6,11 @@
 }
 
 .code {
-	padding-left: 2em;
+	padding-left: 1.25em;
+	background-color: #F8F8F8;
 }
 
 .map {
 	height: 300px;
-	width: 400px;
+	width: 450px;
 }
