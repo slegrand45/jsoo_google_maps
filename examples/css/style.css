@@ -1,0 +1,15 @@
+.demo {
+	width: 80%;
+	margin: auto;
+	border-collapse: separate;
+    border-spacing: 0 2em;
+}
+
+.code {
+	padding-left: 2em;
+}
+
+.map {
+	height: 300px;
+	width: 400px;
+}
