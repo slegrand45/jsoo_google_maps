@@ -8,6 +8,7 @@ let demo () =
   let _ = Directions.demo doc in
   let _ = Markers.demo doc in
   let _ = Info_window.demo doc in
+  let _ = Rectangle_event.demo doc in
   ()
 
 let main _ =

@@ -64,3 +64,13 @@
   {% endhighlight %}
   d
 }
+
+/<!--RECTANGLE_EVENT-->/ {
+  i \
+  {% highlight ocaml %}
+  r rectangle_event.ml
+  a \
+  \
+  {% endhighlight %}
+  d
+}

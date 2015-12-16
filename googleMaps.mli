@@ -33,6 +33,7 @@ type transitRoutePreference
 type unitSystem
 type directionsStatus
 type markerConstant
+type strokePosition
 
 class type _LatLngLiteral = object
   method lat : Js.number Js.t Js.prop
@@ -578,6 +579,93 @@ class type _PolylineOptions = object
   method zIndex : Js.number Js.t Js.prop
 end
 
+class type _Polyline = object
+  inherit _MVCObject
+  method getDraggable : bool Js.t Js.meth
+  method getEditable : bool Js.t Js.meth
+  method getMap : _Map Js.t Js.meth
+  method getPath : (* MVCArray<LatLng> *) _MVCArray Js.t Js.meth
+  method getVisible : bool Js.t Js.meth
+  method setDraggable : bool Js.t -> unit Js.meth
+  method setEditable : bool Js.t -> unit Js.meth
+  method setMap : _Map Js.t -> unit Js.meth
+  method setOptions : _PolylineOptions Js.t -> unit Js.meth
+  method setPath : _MVCArray_LatLng_or_Array_LatLng_or_LatLngLiteral -> unit Js.meth
+  method setVisible : bool Js.t -> unit Js.meth
+end
+
+class type _StrokePosition = object
+  method _CENTER : strokePosition Js.readonly_prop
+  method _INSIDE : strokePosition Js.readonly_prop
+  method _OUTSIDE : strokePosition Js.readonly_prop
+end
+
+class type _RectangleOptions = object
+  method bounds : (* _LatLngBounds_or_LatLngBoundsLiteral *) _LatLngBounds Js.t Js.prop
+  method clickable : bool Js.t Js.prop
+  method draggable : bool Js.t Js.prop
+  method editable : bool Js.t Js.prop
+  method fillColor : Js.js_string Js.t Js.prop
+  method fillOpacity : Js.number Js.t Js.prop
+  method map : _Map Js.t Js.prop
+  method strokeColor : Js.js_string Js.t Js.prop
+  method strokeOpacity : Js.number Js.t Js.prop
+  method strokePosition : _StrokePosition Js.t Js.prop
+  method strokeWeight : Js.number Js.t Js.prop
+  method visible : bool Js.t Js.prop
+  method zIndex : Js.number Js.t Js.prop
+end
+
+class type _Rectangle = object
+  inherit _MVCObject
+  method getBounds : _LatLngBounds Js.t Js.meth
+  method getDraggable : bool Js.t Js.meth
+  method getEditable : bool Js.t Js.meth
+  method getMap : _Map Js.t Js.meth
+  method getVisible : bool Js.t Js.meth
+  method setBounds : _LatLngBounds_or_LatLngBoundsLiteral Js.t -> unit Js.meth
+  method setDraggable : bool Js.t -> unit Js.meth
+  method setEditable : bool Js.t -> unit Js.meth
+  method setMap : _Map Js.t -> unit Js.meth
+  method setOptions : _RectangleOptions Js.t -> unit Js.meth
+  method setVisible : bool Js.t -> unit Js.meth
+end
+
+class type _CircleOptions = object
+  method center : _LatLng Js.t Js.prop
+  method clickable : bool Js.t Js.prop
+  method draggable : bool Js.t Js.prop
+  method editable : bool Js.t Js.prop
+  method fillColor : Js.js_string Js.t Js.prop
+  method fillOpacity : Js.number Js.t Js.prop
+  method map : _Map Js.t Js.prop
+  method radius : Js.number Js.t Js.prop
+  method strokeColor : Js.js_string Js.t Js.prop
+  method strokeOpacity : Js.number Js.t Js.prop
+  method strokePosition : _StrokePosition Js.t Js.prop
+  method strokeWeight : Js.number Js.t Js.prop
+  method visible : bool Js.t Js.prop
+  method zIndex : Js.number Js.t Js.prop
+end
+
+class type _Circle = object
+  inherit _MVCObject
+  method getBounds : _LatLngBounds Js.t Js.meth
+  method getCenter : _LatLng Js.t Js.meth
+  method getDraggable : bool Js.t Js.meth
+  method getEditable : bool Js.t Js.meth
+  method getMap : _Map Js.t Js.meth
+  method getRadius : Js.number Js.t Js.meth
+  method getVisible : bool Js.t Js.meth
+  method setCenter : (* _LatLng_or_LatLngLiteral *) _LatLng Js.t -> unit Js.meth
+  method setDraggable : bool Js.t -> unit Js.meth
+  method setEditable : bool Js.t -> unit Js.meth
+  method setMap : _Map Js.t -> unit Js.meth
+  method setOptions : _CircleOptions Js.t -> unit Js.meth
+  method setRadius : Js.number Js.t -> unit Js.meth
+  method setVisible : bool Js.t -> unit Js.meth
+end
+
 class type _DirectionsRendererOptions = object
   method directions : _DirectionsResult Js.t Js.prop
   method draggable : bool Js.t Js.prop
@@ -728,6 +816,8 @@ class type _Marker = object
   method _MAX_ZINDEX : markerConstant Js.readonly_prop
 end
 
+val mvcObject : (_MVCObject Js.t) Js.constr
+
 val map : (Dom_html.element Js.t -> _MapOptions Js.t -> _Map Js.t) Js.constr
 
 val latLng : (Js.number Js.t -> Js.number Js.t -> (* optional *) bool Js.t -> _LatLng Js.t) Js.constr
@@ -748,6 +838,12 @@ val directionsService : (_DirectionsService Js.t) Js.constr
 
 val marker : ( (* optional *) _MarkerOptions Js.t -> _Marker Js.t) Js.constr
 
+val polyline : ( (* optional *) _PolylineOptions Js.t -> _Polyline Js.t) Js.constr
+
+val rectangle : ( (* optional *) _RectangleOptions Js.t -> _Rectangle Js.t) Js.constr
+
+val circle : ( (* optional *) _CircleOptions Js.t -> _Circle Js.t) Js.constr
+
 val emptyMapOptions : unit -> _MapOptions Js.t
 
 val emptyMapTypeStyle : unit -> _MapTypeStyle Js.t
@@ -763,6 +859,12 @@ val emptyPlace : unit -> _Place Js.t
 val emptyMarkerOptions : unit -> _MarkerOptions Js.t
 
 val emptyInfoWindowOptions : unit -> _InfoWindowOptions Js.t
+
+val emptyRectangleOptions : unit -> _RectangleOptions Js.t
+
+val emptyCircleOptions : unit -> _CircleOptions Js.t
+
+val emptyPolylineOptions : unit -> _PolylineOptions Js.t
 
 val mapTypeId : _MapTypeId Js.t
 
