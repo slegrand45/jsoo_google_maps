@@ -3,7 +3,7 @@ let demo doc =
     Js.Opt.get (doc##getElementById(Js.string "demo_markers"))
       (fun () -> assert false)
   in
-  let lat_lng = jsnew GoogleMaps.latLng (Js.number_of_float (-25.363), Js.number_of_float 131.044, Js._false) in
+  let lat_lng = jsnew GoogleMaps.latLng(Js.number_of_float (-25.363), Js.number_of_float 131.044, Js.undefined) in
 
   let options = GoogleMaps.emptyMapOptions() in
   let () = options##center <- lat_lng in
@@ -15,4 +15,4 @@ let demo doc =
   let () = options##map <- map in
   let () = options##position <- lat_lng in
   let () = options##title <- Js.string "Hello World!" in
-  jsnew GoogleMaps.marker(options)
+  jsnew GoogleMaps.marker(Js.def options)

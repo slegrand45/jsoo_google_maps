@@ -3,8 +3,8 @@ let demo doc =
     Js.Opt.get (doc##getElementById(Js.string "demo_directions"))
       (fun () -> assert false)
   in
-  let chicago = jsnew GoogleMaps.latLng (Js.number_of_float 41.85, Js.number_of_float (-87.65), Js._false) in
-  let indianapolis = jsnew GoogleMaps.latLng (Js.number_of_float 39.79, Js.number_of_float (-86.14), Js._false) in
+  let chicago = jsnew GoogleMaps.latLng(Js.number_of_float 41.85, Js.number_of_float (-87.65), Js.undefined) in
+  let indianapolis = jsnew GoogleMaps.latLng(Js.number_of_float 39.79, Js.number_of_float (-86.14), Js.undefined) in
 
   let options = GoogleMaps.emptyMapOptions() in
   let () = options##center <- chicago in
@@ -14,7 +14,7 @@ let demo doc =
 
   let options = GoogleMaps.emptyDirectionsRendererOptions() in
   let () = options##map <- map in
-  let directions_display = jsnew GoogleMaps.directionsRenderer(options) in
+  let directions_display = jsnew GoogleMaps.directionsRenderer(Js.def options) in
   let request = GoogleMaps.emptyDirectionsRequest() in
   let place_indianapolis = GoogleMaps.emptyPlace() in
   let () = place_indianapolis##location <- indianapolis in

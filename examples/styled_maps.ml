@@ -36,7 +36,7 @@ let demo doc =
       (fun () -> assert false)
   in
   let options = GoogleMaps.emptyMapOptions() in
-  let lat_lng = jsnew GoogleMaps.latLng (Js.number_of_float (-34.397), Js.number_of_float 150.644, Js._false) in
+  let lat_lng = jsnew GoogleMaps.latLng(Js.number_of_float (-34.397), Js.number_of_float 150.644, Js.undefined) in
   let () = options##center <- lat_lng in
   let () = options##scrollwheel <- Js._false in
   let () = options##styles <- styleArray in

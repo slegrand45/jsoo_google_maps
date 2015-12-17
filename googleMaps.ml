@@ -41,7 +41,7 @@ class type _LatLng = object
   method lng : Js.number Js.t Js.meth
   method toJSON : _LatLngLiteral Js.t Js.meth
   method toString : Js.js_string Js.t Js.meth
-  method toUrlValue : (* optional *) Js.number Js.t -> Js.js_string Js.t Js.meth
+  method toUrlValue : Js.number Js.t Js.optdef -> Js.js_string Js.t Js.meth
 end
 
 class type _LatLngBoundsLiteral = object
@@ -63,7 +63,7 @@ class type _LatLngBounds = object
   method toJSON : _LatLngBoundsLiteral Js.t Js.meth
   method toSpan : _LatLng Js.t Js.meth
   method toString : Js.js_string Js.t Js.meth
-  method toUrlValue : (* optional *) Js.number Js.t -> Js.js_string Js.t Js.meth
+  method toUrlValue : Js.number Js.t Js.optdef -> Js.js_string Js.t Js.meth
   method union : _LatLngBounds_or_LatLngBoundsLiteral -> _LatLngBounds Js.t Js.meth
 end
 
@@ -255,14 +255,13 @@ end
 class type _Point = object
   method equals : _Point Js.t -> bool Js.t Js.meth
   method toString : Js.js_string Js.t Js.meth
-
   method x : Js.number Js.t Js.prop
   method y : Js.number Js.t Js.prop
 end
 
 class type _Projection = object
-  method fromLatLngToPoint : _LatLng Js.t -> (* optional *) _Point Js.t -> _Point Js.t Js.meth
-  method fromPointToLatLng : _Point Js.t -> (* optional *) bool Js.t -> _LatLng Js.t Js.meth
+  method fromLatLngToPoint : _LatLng Js.t -> _Point Js.t Js.optdef -> _Point Js.t Js.meth
+  method fromPointToLatLng : _Point Js.t -> bool Js.t Js.optdef -> _LatLng Js.t Js.meth
 end
 
 class type _MapOptions = object
@@ -465,7 +464,7 @@ end
 
 class type _MVCObject = object
   method addListener : Js.js_string Js.t -> 'a Js.callback -> _MapsEventListener Js.t Js.meth
-  method bindTo : Js.js_string Js.t -> _MVCObject Js.t -> (* optional *) Js.js_string Js.t -> (* optional *) bool Js.t -> unit Js.meth
+  method bindTo : Js.js_string Js.t -> _MVCObject Js.t -> Js.js_string Js.t Js.optdef -> bool Js.t Js.optdef -> unit Js.meth
   method changed : Js.js_string Js.t -> unit Js.meth
   method get : Js.js_string Js.t -> 'a Js.meth
   method notify : Js.js_string Js.t -> unit Js.meth
@@ -489,7 +488,7 @@ class type _InfoWindow = object
   method getContent : (* string_or_node *) Js.js_string Js.t Js.meth
   method getPosition : _LatLng Js.t Js.meth
   method getZIndex : Js.number Js.t Js.meth
-  method _open : (* optional *) (* _Map_or_StreetViewPanorama *) _Map Js.t -> (* optional *) _MVCObject Js.t -> unit Js.meth
+  method _open : (* _Map_or_StreetViewPanorama *) _Map Js.t Js.optdef -> _MVCObject Js.t Js.optdef -> unit Js.meth
   method setContent : (* string_or_node *) Js.js_string Js.t -> unit Js.meth
   method setOptions : _InfoWindowOptions Js.t -> unit Js.meth
   method setPosition : (* _LatLng_or_LatLngLiteral *) _LatLng Js.t -> unit Js.meth

@@ -3,7 +3,7 @@ let demo doc =
     Js.Opt.get (doc##getElementById(Js.string "demo_info_window"))
       (fun () -> assert false)
   in
-  let uluru = jsnew GoogleMaps.latLng (Js.number_of_float (-25.363), Js.number_of_float 131.044, Js._false) in
+  let uluru = jsnew GoogleMaps.latLng(Js.number_of_float (-25.363), Js.number_of_float 131.044, Js.undefined) in
 
   let options = GoogleMaps.emptyMapOptions() in
   let () = options##center <- uluru in
@@ -33,14 +33,14 @@ let demo doc =
 
   let options = GoogleMaps.emptyInfoWindowOptions() in
   let () = options##content <- Js.string content in
-  let info_window = jsnew GoogleMaps.infoWindow(options) in
+  let info_window = jsnew GoogleMaps.infoWindow(Js.def options) in
 
   let options = GoogleMaps.emptyMarkerOptions() in
   let () = options##map <- map in
   let () = options##position <- uluru in
   let () = options##title <- Js.string "Uluru (Ayers Rock)" in
-  let marker = jsnew GoogleMaps.marker(options) in
+  let marker = jsnew GoogleMaps.marker(Js.def options) in
   let marker' = (marker :> GoogleMaps._MVCObject Js.t) in
 
-  let f () = info_window##_open(map, marker') in
+  let f () = info_window##_open(Js.def map, Js.def marker') in
   marker##addListener(Js.string "click", Js.wrap_callback f)
