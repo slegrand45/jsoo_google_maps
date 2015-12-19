@@ -52,8 +52,19 @@
 					<!--RECTANGLE_EVENT-->
 				</td>
 			</tr>
+			<tr class="line">
+				<td class="map" id="demo_earthquake"></div>
+				<td class="code">
+					<!--EARTHQUAKE-->
+				</td>
+			</tr>
 		</table>
 		<script src="https://maps.googleapis.com/maps/api/js"></script>
 		<script src="js/main.js"></script>
+		<script>
+			function eqfeed_callback(v) {
+				eqfeed(v);
+			}
+		</script>
 	</body>
 </html>

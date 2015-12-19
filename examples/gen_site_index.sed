@@ -74,3 +74,13 @@
   {% endhighlight %}
   d
 }
+
+/<!--EARTHQUAKE-->/ {
+  i \
+  {% highlight ocaml %}
+  r earthquake.ml
+  a \
+  \
+  {% endhighlight %}
+  d
+}

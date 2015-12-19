@@ -1,6 +1,6 @@
 (** Google Maps API binding
-  version 3.23
-  @see <https://developers.google.com/maps/documentation/javascript/3.exp/reference>
+    version 3.23
+    @see <https://developers.google.com/maps/documentation/javascript/3.exp/reference>
 *)
 
 type _LatLngBounds_or_LatLngBoundsLiteral
@@ -17,6 +17,10 @@ type string_or_MarkerLabel
 type _SymbolPath_or_string
 type _MVCArray_LatLng_or_Array_LatLng_or_LatLngLiteral
 type _Object_or_undefined
+type _DataFeature_or_DataFeatureOptions
+type _DataStylingFunction_or_DataStyleOptions
+type number_or_string
+type _DataGeometry_or_LatLng_or_LatLngLiteral
 
 type mapTypeId
 type controlPosition
@@ -34,6 +38,7 @@ type unitSystem
 type directionsStatus
 type markerConstant
 type strokePosition
+type symbolPath
 
 class type _LatLngLiteral = object
   method lat : Js.number Js.t Js.prop
@@ -218,6 +223,22 @@ class type _MVCArray = object
 
 end
 
+class type _MapsEventListener = object
+
+end
+
+class type _MVCObject = object
+  method addListener : Js.js_string Js.t -> 'a Js.callback -> _MapsEventListener Js.t Js.meth
+  method bindTo : Js.js_string Js.t -> _MVCObject Js.t -> Js.js_string Js.t Js.optdef -> bool Js.t Js.optdef -> unit Js.meth
+  method changed : Js.js_string Js.t -> unit Js.meth
+  method get : Js.js_string Js.t -> 'a Js.meth
+  method notify : Js.js_string Js.t -> unit Js.meth
+  method set : Js.js_string Js.t -> 'a Js.t -> unit Js.meth
+  method setValues : _Object_or_undefined -> unit Js.meth
+  method unbind : Js.js_string Js.t -> unit Js.meth
+  method unbindAll : unit Js.meth
+end
+
 class type _StreetViewPanorama = object
   method getLinks : _StreetViewLink Js.t Js.js_array Js.meth
   method getLocation : _StreetViewLocation Js.t Js.meth
@@ -236,8 +257,42 @@ class type _StreetViewPanorama = object
   method setPov : _StreetViewPov Js.t -> unit Js.meth
   method setVisible : bool Js.t -> unit Js.meth
   method setZoom : Js.number Js.t -> unit Js.meth
-
   method controls : _MVCArray Js.t Js.js_array Js.t Js.prop (* Array<MVCArray<Node>> *)
+end
+
+class type _Point = object
+  method equals : _Point Js.t -> bool Js.t Js.meth
+  method toString : Js.js_string Js.t Js.meth
+  method x : Js.number Js.t Js.prop
+  method y : Js.number Js.t Js.prop
+end
+
+class type _SymbolPath = object
+  method _BACKWARD_CLOSED_ARROW : symbolPath Js.readonly_prop
+  method _BACKWARD_OPEN_ARROW : symbolPath Js.readonly_prop
+  method _CIRCLE : symbolPath Js.readonly_prop
+  method _FORWARD_CLOSED_ARROW : symbolPath Js.readonly_prop
+  method _FORWARD_OPEN_ARROW : symbolPath Js.readonly_prop
+end
+
+class type _Symbol = object
+  method anchor : _Point Js.t Js.prop
+  method fillColor : Js.js_string Js.t Js.prop
+  method fillOpacity : Js.number Js.t Js.prop
+  method labelOrigin : _Point Js.t Js.prop
+  method path : (* _SymbolPath_or_string *) symbolPath Js.prop
+  method rotation : Js.number Js.t Js.prop
+  method scale : Js.number Js.t Js.prop
+  method strokeColor : Js.js_string Js.t Js.prop
+  method strokeOpacity : Js.number Js.t Js.prop
+  method strokeWeight : Js.number Js.t Js.prop
+end
+
+class type _IconSequence = object
+  method fixedRotation : bool Js.t Js.prop
+  method icon : _Symbol Js.t Js.prop
+  method offset : Js.js_string Js.t Js.prop
+  method repeat : Js.js_string Js.t Js.prop
 end
 
 class type _MapTypeStyler = object
@@ -257,16 +312,31 @@ class type _MapTypeStyle = object
   method stylers : _MapTypeStyler Js.t Js.js_array Js.t Js.prop
 end
 
-class type _Point = object
-  method equals : _Point Js.t -> bool Js.t Js.meth
-  method toString : Js.js_string Js.t Js.meth
-  method x : Js.number Js.t Js.prop
-  method y : Js.number Js.t Js.prop
-end
-
 class type _Projection = object
   method fromLatLngToPoint : _LatLng Js.t -> _Point Js.t Js.optdef -> _Point Js.t Js.meth
   method fromPointToLatLng : _Point Js.t -> bool Js.t Js.optdef -> _LatLng Js.t Js.meth
+end
+
+class type _MarkerShape = object
+  method coords : Js.number Js.t Js.js_array Js.t Js.prop
+  method _type : Js.js_string Js.t Js.prop
+end
+
+class type _MapType = object
+  method getTile : _Point Js.t -> Js.number Js.t -> Dom.element Dom.document Js.t -> Dom.node Js.t Js.meth
+  method releaseTile : Dom.node Js.t -> unit Js.meth
+  method alt : Js.js_string Js.t Js.writeonly_prop
+  method maxZoom : Js.number Js.t Js.writeonly_prop
+  method minZoom : Js.number Js.t Js.writeonly_prop
+  method name : Js.js_string Js.t Js.writeonly_prop
+  method projection : _Projection Js.t Js.writeonly_prop
+  method radius : Js.number Js.t Js.writeonly_prop
+  method tileSize : _Size Js.t Js.writeonly_prop
+end
+
+class type _MapTypeRegistry = object
+  inherit _MVCObject
+  method _set : Js.js_string Js.t -> _MapType Js.t Js.optdef -> unit Js.meth
 end
 
 class type _MapOptions = object
@@ -305,7 +375,83 @@ class type _MapOptions = object
   method zoomControlOptions : _ZoomControlOptions Js.t Js.prop
 end
 
-class type _Map = object
+class type _Data = object
+  inherit _MVCObject
+  method add : _DataFeature_or_DataFeatureOptions -> _Data_Feature Js.t Js.meth
+  method addGeoJson : 'a Js.t -> _Data_GeoJsonOptions Js.t Js.optdef -> _Data_Feature Js.t Js.js_array Js.t Js.meth
+  method contains : _Data_Feature Js.t -> bool Js.t Js.meth
+  method forEach : (_Data_Feature Js.t -> unit Js.t) Js.callback -> unit Js.meth
+  method getControlPosition : _ControlPosition Js.t Js.meth
+  method getControls : Js.js_string Js.t Js.js_array Js.t Js.meth
+  method getDrawingMode : Js.js_string Js.t Js.meth
+  method getFeatureById : number_or_string -> _Data_Feature Js.t Js.optdef Js.meth
+  method getMap : _Map Js.t Js.meth
+  method getStyle : (* _DataStylingFunction_or_DataStyleOptions *) _Data_StyleOptions Js.t Js.meth
+  method loadGeoJson : Js.js_string Js.t -> _Data_GeoJsonOptions Js.t Js.optdef -> (_Data_Feature Js.t Js.js_array Js.t -> unit Js.t) Js.callback -> unit Js.meth
+  method overrideStyle : _Data_Feature Js.t -> _Data_StyleOptions Js.t -> unit Js.meth
+  method remove : _Data_Feature Js.t -> unit Js.meth
+  method revertStyle : _Data_Feature Js.t Js.optdef -> unit Js.meth
+  method setControlPosition : _ControlPosition Js.t -> unit Js.meth
+  method setControls : Js.js_string Js.t Js.js_array Js.t -> unit Js.meth
+  method setDrawingMode : Js.js_string Js.t -> unit Js.meth
+  method setMap : _Map Js.t -> unit Js.meth
+  method setStyle : (* _DataStylingFunction_or_DataStyleOptions *) (_Data_Feature Js.t -> _Data_StyleOptions Js.t) Js.callback -> unit Js.meth
+  method toGeoJson : ('a Js.t -> unit Js.t) Js.callback -> unit Js.meth
+end
+
+and _Data_Geometry = object
+  method getType : Js.js_string Js.t Js.meth
+end
+
+and _Data_FeatureOptions = object
+  method geometry : _DataGeometry_or_LatLng_or_LatLngLiteral Js.writeonly_prop
+  method id : number_or_string Js.writeonly_prop
+  method properties : 'a Js.t Js.writeonly_prop
+end
+
+and _Data_DataOptions = object
+  method controlPosition : _ControlPosition Js.t Js.writeonly_prop
+  method controls : Js.js_string Js.t Js.js_array Js.t Js.writeonly_prop
+  method drawingMode : Js.js_string Js.t Js.writeonly_prop
+  method featureFactory : (_Data_Geometry Js.t -> _Data_Feature Js.t) Js.callback Js.writeonly_prop
+  method map : _Map Js.t Js.writeonly_prop
+  method style : _DataStylingFunction_or_DataStyleOptions Js.writeonly_prop
+end
+
+and _Data_Feature = object
+  method forEachProperty : ('a -> Js.js_string Js.t -> unit Js.t) Js.callback -> unit Js.meth
+  method getGeometry : _Data_Geometry Js.t Js.meth
+  method getId : number_or_string Js.optdef Js.meth
+  method getProperty : Js.js_string Js.t -> 'a Js.optdef Js.meth
+  method removeProperty : Js.js_string Js.t -> unit Js.meth
+  method setGeometry : _DataGeometry_or_LatLng_or_LatLngLiteral -> unit Js.meth
+  method setProperty : Js.js_string Js.t -> 'a -> unit Js.meth
+  method toGeoJson : ('a Js.t -> unit Js.t) Js.callback -> unit Js.meth
+end
+
+and _Data_GeoJsonOptions = object
+  method idPropertyName : Js.js_string Js.t Js.writeonly_prop
+end
+
+and _Data_StyleOptions = object
+  method clickable : bool Js.t Js.writeonly_prop
+  method cursor : Js.js_string Js.t Js.writeonly_prop
+  method draggable : bool Js.t Js.writeonly_prop
+  method editable : bool Js.t Js.writeonly_prop
+  method fillColor : Js.js_string Js.t Js.writeonly_prop
+  method fillOpacity : Js.number Js.t Js.writeonly_prop
+  method icon : (* string_or_Icon_or_Symbol *) _Symbol Js.t Js.writeonly_prop
+  method shape : _MarkerShape Js.t Js.writeonly_prop
+  method strokeColor : Js.js_string Js.t Js.writeonly_prop
+  method strokeOpacity : Js.number Js.t Js.writeonly_prop
+  method strokeWeight : Js.number Js.t Js.writeonly_prop
+  method title : Js.js_string Js.t Js.writeonly_prop
+  method visible : bool Js.t Js.writeonly_prop
+  method zIndex : Js.number Js.t Js.writeonly_prop
+end
+
+and _Map = object
+  inherit _MVCObject
   method fitBounds : _LatLngBounds_or_LatLngBoundsLiteral -> unit Js.meth
   method getBounds : _LatLngBounds Js.t Js.meth
   method getCenter : _LatLng Js.t Js.meth
@@ -326,6 +472,10 @@ class type _Map = object
   method setStreetView : _StreetViewPanorama Js.t -> unit Js.meth
   method setTilt : Js.number Js.t -> unit Js.meth
   method setZoom : Js.number Js.t -> unit Js.meth
+  method controls : (* Array<MVCArray<Node>> *) _MVCArray Js.t Js.prop
+  method data : _Data Js.t Js.prop
+  method mapTypes : _MapTypeRegistry Js.t Js.prop
+  method overlayMapTypes : (* MVCArray<MapType> *) _MVCArray Js.t Js.prop
 end
 
 class type _DirectionsGeocodedWaypoint = object
@@ -463,22 +613,6 @@ class type _DirectionsResult = object
   method routes : _DirectionsRoute Js.t Js.js_array Js.t Js.readonly_prop
 end
 
-class type _MapsEventListener = object
-
-end
-
-class type _MVCObject = object
-  method addListener : Js.js_string Js.t -> 'a Js.callback -> _MapsEventListener Js.t Js.meth
-  method bindTo : Js.js_string Js.t -> _MVCObject Js.t -> Js.js_string Js.t Js.optdef -> bool Js.t Js.optdef -> unit Js.meth
-  method changed : Js.js_string Js.t -> unit Js.meth
-  method get : Js.js_string Js.t -> 'a Js.meth
-  method notify : Js.js_string Js.t -> unit Js.meth
-  method set : Js.js_string Js.t -> 'a Js.t -> unit Js.meth
-  method setValues : _Object_or_undefined -> unit Js.meth
-  method unbind : Js.js_string Js.t -> unit Js.meth
-  method unbindAll : unit Js.meth
-end
-
 class type _InfoWindowOptions = object
   method content : (* string_or_node *) Js.js_string Js.t Js.prop
   method disableAutoPan : bool Js.t Js.prop
@@ -517,11 +651,6 @@ class type _MarkerPlace = object
   method query : Js.js_string Js.t Js.prop
 end
 
-class type _MarkerShape = object
-  method coords : Js.number Js.t Js.js_array Js.t Js.prop
-  method _type : Js.js_string Js.t Js.prop
-end
-
 class type _MarkerOptions = object
   method anchorPoint : _Point Js.t Js.prop
   method animation : animation Js.prop
@@ -541,26 +670,6 @@ class type _MarkerOptions = object
   method title : Js.js_string Js.t Js.prop
   method visible : bool Js.t Js.prop
   method zIndex : Js.number Js.t Js.prop
-end
-
-class type _Symbol = object
-  method anchor : _Point Js.t Js.prop
-  method fillColor : Js.js_string Js.t Js.prop
-  method fillOpacity : Js.number Js.t Js.prop
-  method labelOrigin : _Point Js.t Js.prop
-  method path : _SymbolPath_or_string Js.prop
-  method rotation : Js.number Js.t Js.prop
-  method scale : Js.number Js.t Js.prop
-  method strokeColor : Js.js_string Js.t Js.prop
-  method strokeOpacity : Js.number Js.t Js.prop
-  method strokeWeight : Js.number Js.t Js.prop
-end
-
-class type _IconSequence = object
-  method fixedRotation : bool Js.t Js.prop
-  method icon : _Symbol Js.t Js.prop
-  method offset : Js.js_string Js.t Js.prop
-  method repeat : Js.js_string Js.t Js.prop
 end
 
 class type _PolylineOptions = object
@@ -770,6 +879,15 @@ class type _DirectionsService = object
   method route : _DirectionsRequest Js.t -> (_DirectionsResult Js.t -> directionsStatus -> unit) Js.callback -> unit Js.meth
 end
 
+class type _Icon = object
+  method anchor : _Point Js.t Js.writeonly_prop
+  method labelOrigin : _Point Js.t Js.writeonly_prop
+  method origin : _Point Js.t Js.writeonly_prop
+  method scaledSize : _Size Js.t Js.writeonly_prop
+  method size : _Size Js.t Js.writeonly_prop
+  method url : Js.js_string Js.t Js.writeonly_prop
+end
+
 class type _MarkerLabel = object
   method color : Js.js_string Js.t Js.prop
   method fontFamily : Js.js_string Js.t Js.prop
@@ -815,6 +933,8 @@ class type _Marker = object
   method _MAX_ZINDEX : markerConstant Js.readonly_prop
 end
 
+val dataFeature : (_Data_FeatureOptions Js.t Js.optdef -> _Data_Feature Js.t) Js.constr
+
 val mvcObject : (_MVCObject Js.t) Js.constr
 
 val map : (Dom_html.element Js.t -> _MapOptions Js.t -> _Map Js.t) Js.constr
@@ -843,6 +963,10 @@ val rectangle : (_RectangleOptions Js.t Js.optdef -> _Rectangle Js.t) Js.constr
 
 val circle : (_CircleOptions Js.t Js.optdef -> _Circle Js.t) Js.constr
 
+val data : (_Data_DataOptions Js.t Js.optdef -> _Data Js.t) Js.constr
+
+val mapTypeRegistry : (_MapTypeRegistry Js.t) Js.constr
+
 val emptyMapOptions : unit -> _MapOptions Js.t
 
 val emptyMapTypeStyle : unit -> _MapTypeStyle Js.t
@@ -864,6 +988,10 @@ val emptyRectangleOptions : unit -> _RectangleOptions Js.t
 val emptyCircleOptions : unit -> _CircleOptions Js.t
 
 val emptyPolylineOptions : unit -> _PolylineOptions Js.t
+
+val emptySymbol : unit -> _Symbol Js.t
+
+val emptyDataStyleOptions : unit -> _Data_StyleOptions Js.t
 
 val mapTypeId : _MapTypeId Js.t
 
@@ -894,3 +1022,5 @@ val trafficModel : _TrafficModel Js.t
 val directionsStatus : _DirectionsStatus Js.t
 
 val markerConstant : _Marker Js.t
+
+val symbolPath : _SymbolPath Js.t
