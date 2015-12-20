@@ -10,6 +10,7 @@ let demo () =
   let _ = Info_window.demo doc in
   let _ = Rectangle_event.demo doc in
   let _ = Earthquake.demo doc in
+  let _ = Georss.demo doc in
   ()
 
 let main _ =

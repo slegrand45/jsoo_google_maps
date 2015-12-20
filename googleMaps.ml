@@ -34,6 +34,7 @@ type directionsStatus
 type markerConstant
 type strokePosition
 type symbolPath
+type kmlLayerStatus
 
 class type _LatLngLiteral = object
   method lat : Js.number Js.t Js.prop
@@ -924,8 +925,71 @@ class type _Marker = object
   method setTitle : Js.js_string Js.t -> unit Js.meth
   method setVisible : bool Js.t -> unit Js.meth
   method setZIndex : Js.number Js.t -> unit Js.meth
-
   method _MAX_ZINDEX : markerConstant Js.readonly_prop
+end
+
+class type _KmlAuthor = object
+  method email : Js.js_string Js.t Js.readonly_prop
+  method name : Js.js_string Js.t Js.readonly_prop
+  method uri : Js.js_string Js.t Js.readonly_prop
+end
+
+class type _KmlFeatureData = object
+  method author : _KmlAuthor Js.t Js.readonly_prop
+  method description : Js.js_string Js.t Js.readonly_prop
+  method id : Js.js_string Js.t Js.readonly_prop
+  method infoWindowHtml : Js.js_string Js.t Js.readonly_prop
+  method name : Js.js_string Js.t Js.readonly_prop
+  method snippet : Js.js_string Js.t Js.readonly_prop
+end
+
+class type _KmlMouseEvent = object
+  method featureData : _KmlFeatureData Js.t Js.readonly_prop
+  method latLng : _LatLng Js.t Js.readonly_prop
+  method pixelOffset : _Size Js.t Js.readonly_prop
+end
+
+class type _KmlLayerStatus = object
+  method _DOCUMENT_NOT_FOUND : kmlLayerStatus Js.readonly_prop
+  method _DOCUMENT_TOO_LARGE : kmlLayerStatus Js.readonly_prop
+  method _FETCH_ERROR : kmlLayerStatus Js.readonly_prop
+  method _INVALID_DOCUMENT : kmlLayerStatus Js.readonly_prop
+  method _INVALID_REQUEST : kmlLayerStatus Js.readonly_prop
+  method _LIMITS_EXCEEDED : kmlLayerStatus Js.readonly_prop
+  method _OK : kmlLayerStatus Js.readonly_prop
+  method _TIMED_OUT : kmlLayerStatus Js.readonly_prop
+  method _UNKNOWN : kmlLayerStatus Js.readonly_prop
+end
+
+class type _KmlLayerMetadata = object
+  method author : _KmlAuthor Js.t Js.readonly_prop
+  method description : Js.js_string Js.t Js.readonly_prop
+  method hasScreenOverlays : bool Js.t Js.readonly_prop
+  method name : Js.js_string Js.t Js.readonly_prop
+  method snippet : Js.js_string Js.t Js.readonly_prop
+end
+
+class type _KmlLayerOptions = object
+  method clickable : bool Js.t Js.writeonly_prop
+  method map : _Map Js.t Js.writeonly_prop
+  method preserveViewport : bool Js.t Js.writeonly_prop
+  method screenOverlays : bool Js.t Js.writeonly_prop
+  method suppressInfoWindows : bool Js.t Js.writeonly_prop
+  method url : Js.js_string Js.t Js.writeonly_prop
+  method zIndex : Js.number Js.t Js.writeonly_prop
+end
+
+class type _KmlLayer = object
+  inherit _MVCObject
+  method getDefaultViewport : _LatLngBounds Js.t Js.meth
+  method getMap : _Map Js.t Js.meth
+  method getMetadata : _KmlLayerMetadata Js.t Js.meth
+  method getStatus : _KmlLayerStatus Js.t Js.meth
+  method getUrl : Js.js_string Js.t Js.meth
+  method getZIndex : Js.number Js.t Js.meth
+  method setMap : _Map Js.t -> unit Js.meth
+  method setUrl : Js.js_string Js.t -> unit Js.meth
+  method setZIndex : Js.number Js.t -> unit Js.meth
 end
 
 let dataFeature =
@@ -979,6 +1043,9 @@ let data =
 let mapTypeRegistry =
   (Js.Unsafe.js_expr "google.maps")##_MapTypeRegistry
 
+let kmlLayer =
+  (Js.Unsafe.js_expr "google.maps")##_KmlLayer
+
 let emptyMapOptions () = Js.Unsafe.obj [||]
 
 let emptyMapTypeStyle () = Js.Unsafe.obj [||]
@@ -1004,6 +1071,8 @@ let emptyPolylineOptions () = Js.Unsafe.obj [||]
 let emptySymbol () = Js.Unsafe.obj [||]
 
 let emptyDataStyleOptions () = Js.Unsafe.obj [||]
+
+let emptyKmlLayerOptions () = Js.Unsafe.obj [||]
 
 let mapTypeId =
   (Js.Unsafe.js_expr "google.maps")##_MapTypeId

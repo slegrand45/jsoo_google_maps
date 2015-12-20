@@ -84,3 +84,13 @@
   {% endhighlight %}
   d
 }
+
+/<!--GEORSS-->/ {
+  i \
+  {% highlight ocaml %}
+  r georss.ml
+  a \
+  \
+  {% endhighlight %}
+  d
+}
