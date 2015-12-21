@@ -35,6 +35,8 @@ type markerConstant
 type strokePosition
 type symbolPath
 type kmlLayerStatus
+type geocoderStatus
+type geocoderLocationType
 
 class type _LatLngLiteral = object
   method lat : Js.number Js.t Js.prop
@@ -376,23 +378,23 @@ class type _Data = object
   method add : _DataFeature_or_DataFeatureOptions -> _Data_Feature Js.t Js.meth
   method addGeoJson : 'a Js.t -> _Data_GeoJsonOptions Js.t Js.optdef -> _Data_Feature Js.t Js.js_array Js.t Js.meth
   method contains : _Data_Feature Js.t -> bool Js.t Js.meth
-  method forEach : (_Data_Feature Js.t -> unit Js.t) Js.callback -> unit Js.meth
-  method getControlPosition : _ControlPosition Js.t Js.meth
+  method forEach : (_Data_Feature Js.t -> unit) Js.callback -> unit Js.meth
+  method getControlPosition : controlPosition Js.meth
   method getControls : Js.js_string Js.t Js.js_array Js.t Js.meth
   method getDrawingMode : Js.js_string Js.t Js.meth
   method getFeatureById : number_or_string -> _Data_Feature Js.t Js.optdef Js.meth
   method getMap : _Map Js.t Js.meth
   method getStyle : (* _DataStylingFunction_or_DataStyleOptions *) _Data_StyleOptions Js.t Js.meth
-  method loadGeoJson : Js.js_string Js.t -> _Data_GeoJsonOptions Js.t Js.optdef -> (_Data_Feature Js.t Js.js_array Js.t -> unit Js.t) Js.callback -> unit Js.meth
+  method loadGeoJson : Js.js_string Js.t -> _Data_GeoJsonOptions Js.t Js.optdef -> (_Data_Feature Js.t Js.js_array Js.t -> unit) Js.callback -> unit Js.meth
   method overrideStyle : _Data_Feature Js.t -> _Data_StyleOptions Js.t -> unit Js.meth
   method remove : _Data_Feature Js.t -> unit Js.meth
   method revertStyle : _Data_Feature Js.t Js.optdef -> unit Js.meth
-  method setControlPosition : _ControlPosition Js.t -> unit Js.meth
+  method setControlPosition : controlPosition -> unit Js.meth
   method setControls : Js.js_string Js.t Js.js_array Js.t -> unit Js.meth
   method setDrawingMode : Js.js_string Js.t -> unit Js.meth
   method setMap : _Map Js.t -> unit Js.meth
   method setStyle : (* _DataStylingFunction_or_DataStyleOptions *) (_Data_Feature Js.t -> _Data_StyleOptions Js.t) Js.callback -> unit Js.meth
-  method toGeoJson : ('a Js.t -> unit Js.t) Js.callback -> unit Js.meth
+  method toGeoJson : ('a Js.t -> unit) Js.callback -> unit Js.meth
 end
 
 and _Data_Geometry = object
@@ -406,7 +408,7 @@ and _Data_FeatureOptions = object
 end
 
 and _Data_DataOptions = object
-  method controlPosition : _ControlPosition Js.t Js.writeonly_prop
+  method controlPosition : controlPosition Js.writeonly_prop
   method controls : Js.js_string Js.t Js.js_array Js.t Js.writeonly_prop
   method drawingMode : Js.js_string Js.t Js.writeonly_prop
   method featureFactory : (_Data_Geometry Js.t -> _Data_Feature Js.t) Js.callback Js.writeonly_prop
@@ -415,14 +417,14 @@ and _Data_DataOptions = object
 end
 
 and _Data_Feature = object
-  method forEachProperty : ('a -> Js.js_string Js.t -> unit Js.t) Js.callback -> unit Js.meth
+  method forEachProperty : ('a -> Js.js_string Js.t -> unit) Js.callback -> unit Js.meth
   method getGeometry : _Data_Geometry Js.t Js.meth
   method getId : number_or_string Js.optdef Js.meth
   method getProperty : Js.js_string Js.t -> 'a Js.optdef Js.meth
   method removeProperty : Js.js_string Js.t -> unit Js.meth
   method setGeometry : _DataGeometry_or_LatLng_or_LatLngLiteral -> unit Js.meth
   method setProperty : Js.js_string Js.t -> 'a -> unit Js.meth
-  method toGeoJson : ('a Js.t -> unit Js.t) Js.callback -> unit Js.meth
+  method toGeoJson : ('a Js.t -> unit) Js.callback -> unit Js.meth
 end
 
 and _Data_GeoJsonOptions = object
@@ -714,7 +716,7 @@ class type _RectangleOptions = object
   method map : _Map Js.t Js.prop
   method strokeColor : Js.js_string Js.t Js.prop
   method strokeOpacity : Js.number Js.t Js.prop
-  method strokePosition : _StrokePosition Js.t Js.prop
+  method strokePosition : strokePosition Js.prop
   method strokeWeight : Js.number Js.t Js.prop
   method visible : bool Js.t Js.prop
   method zIndex : Js.number Js.t Js.prop
@@ -746,7 +748,7 @@ class type _CircleOptions = object
   method radius : Js.number Js.t Js.prop
   method strokeColor : Js.js_string Js.t Js.prop
   method strokeOpacity : Js.number Js.t Js.prop
-  method strokePosition : _StrokePosition Js.t Js.prop
+  method strokePosition : strokePosition Js.prop
   method strokeWeight : Js.number Js.t Js.prop
   method visible : bool Js.t Js.prop
   method zIndex : Js.number Js.t Js.prop
@@ -984,12 +986,73 @@ class type _KmlLayer = object
   method getDefaultViewport : _LatLngBounds Js.t Js.meth
   method getMap : _Map Js.t Js.meth
   method getMetadata : _KmlLayerMetadata Js.t Js.meth
-  method getStatus : _KmlLayerStatus Js.t Js.meth
+  method getStatus : kmlLayerStatus Js.meth
   method getUrl : Js.js_string Js.t Js.meth
   method getZIndex : Js.number Js.t Js.meth
   method setMap : _Map Js.t -> unit Js.meth
   method setUrl : Js.js_string Js.t -> unit Js.meth
   method setZIndex : Js.number Js.t -> unit Js.meth
+end
+
+class type _GeocoderLocationType = object
+  method _APPROXIMATE : geocoderLocationType Js.readonly_prop
+  method _GEOMETRIC_CENTER : geocoderLocationType Js.readonly_prop
+  method _RANGE_INTERPOLATED : geocoderLocationType Js.readonly_prop
+  method _ROOFTOP : geocoderLocationType Js.readonly_prop
+end
+
+class type _GeocoderGeometry = object
+  method bounds : _LatLngBounds Js.t Js.readonly_prop
+  method location : _LatLng Js.t Js.readonly_prop
+  method location_type : geocoderLocationType Js.readonly_prop
+  method viewport : _LatLngBounds Js.t Js.readonly_prop
+end
+
+class type _GeocoderAddressComponent = object
+  method long_name : Js.js_string Js.t Js.readonly_prop
+  method short_name : Js.js_string Js.t Js.readonly_prop
+  method types : Js.js_string Js.t Js.js_array Js.t Js.readonly_prop
+end
+
+class type _GeocoderResult = object
+  method address_components : _GeocoderAddressComponent Js.t Js.js_array Js.t Js.readonly_prop
+  method formatted_address : Js.js_string Js.t Js.readonly_prop
+  method geometry : _GeocoderGeometry Js.t Js.readonly_prop
+  method partial_match : bool Js.t Js.readonly_prop
+  method place_id : Js.js_string Js.t Js.readonly_prop
+  method postcode_localities : Js.js_string Js.t Js.js_array Js.t Js.readonly_prop
+  method types : Js.js_string Js.t Js.js_array Js.t Js.readonly_prop
+end
+
+class type _GeocoderStatus = object
+  method _ERROR : geocoderStatus Js.readonly_prop
+  method _INVALID_REQUEST : geocoderStatus Js.readonly_prop
+  method _OK : geocoderStatus Js.readonly_prop
+  method _OVER_QUERY_LIMIT : geocoderStatus Js.readonly_prop
+  method _REQUEST_DENIED : geocoderStatus Js.readonly_prop
+  method _UNKNOWN_ERROR : geocoderStatus Js.readonly_prop
+  method _ZERO_RESULTS : geocoderStatus Js.readonly_prop
+end
+
+class type _GeocoderComponentRestrictions = object
+  method administrativeArea : Js.js_string Js.t Js.writeonly_prop
+  method country : Js.js_string Js.t Js.writeonly_prop
+  method locality : Js.js_string Js.t Js.writeonly_prop
+  method postalCode : Js.js_string Js.t Js.writeonly_prop
+  method route : Js.js_string Js.t Js.writeonly_prop
+end
+
+class type _GeocoderRequest = object
+  method address : Js.js_string Js.t Js.writeonly_prop
+  method bounds : _LatLngBounds_or_LatLngBoundsLiteral Js.writeonly_prop
+  method componentRestrictions : _GeocoderComponentRestrictions Js.t Js.writeonly_prop
+  method location : (* _LatLng_or_LatLngLiteral *) _LatLng Js.t Js.writeonly_prop
+  method placeId : Js.js_string Js.t Js.writeonly_prop
+  method region : Js.js_string Js.t Js.writeonly_prop
+end
+
+class type _Geocoder = object
+  method geocode : _GeocoderRequest Js.t -> (_GeocoderResult Js.t Js.js_array Js.t -> geocoderStatus -> unit) Js.callback -> unit Js.meth
 end
 
 let dataFeature =
@@ -1046,6 +1109,9 @@ let mapTypeRegistry =
 let kmlLayer =
   (Js.Unsafe.js_expr "google.maps")##_KmlLayer
 
+let geocoder =
+  (Js.Unsafe.js_expr "google.maps")##_Geocoder
+
 let emptyMapOptions () = Js.Unsafe.obj [||]
 
 let emptyMapTypeStyle () = Js.Unsafe.obj [||]
@@ -1073,6 +1139,8 @@ let emptySymbol () = Js.Unsafe.obj [||]
 let emptyDataStyleOptions () = Js.Unsafe.obj [||]
 
 let emptyKmlLayerOptions () = Js.Unsafe.obj [||]
+
+let emptyGeocoderRequest () = Js.Unsafe.obj [||]
 
 let mapTypeId =
   (Js.Unsafe.js_expr "google.maps")##_MapTypeId
@@ -1121,3 +1189,12 @@ let markerConstant =
 
 let symbolPath =
   (Js.Unsafe.js_expr "google.maps")##_SymbolPath
+
+let kmlLayerStatus =
+  (Js.Unsafe.js_expr "google.maps")##_KmlLayerStatus
+
+let geocoderStatus =
+  (Js.Unsafe.js_expr "google.maps")##_GeocoderStatus
+
+let geocoderLocationType =
+  (Js.Unsafe.js_expr "google.maps")##_GeocoderLocationType
