@@ -11,6 +11,7 @@ let demo () =
   let _ = Rectangle_event.demo doc in
   let _ = Earthquake.demo doc in
   let _ = Georss.demo doc in
+  let _ = Geocoding.demo doc in
   ()
 
 let main _ =

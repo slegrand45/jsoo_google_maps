@@ -94,3 +94,13 @@
   {% endhighlight %}
   d
 }
+
+/<!--GEOCODING-->/ {
+  i \
+  {% highlight ocaml %}
+  r geocoding.ml
+  a \
+  \
+  {% endhighlight %}
+  d
+}
