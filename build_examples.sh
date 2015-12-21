@@ -4,4 +4,4 @@ ocamlbuild -I examples -use-ocamlfind \
   -syntax camlp4o \
   main.byte ;
 
-js_of_ocaml +weak.js --opt 3 -o examples/js/main.js main.byte
+js_of_ocaml --opt 3 -o examples/js/main.js main.byte
