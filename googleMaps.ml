@@ -37,6 +37,7 @@ type symbolPath
 type kmlLayerStatus
 type geocoderStatus
 type geocoderLocationType
+type placesServiceStatus
 
 class type _LatLngLiteral = object
   method lat : Js.number Js.t Js.prop
@@ -1055,6 +1056,139 @@ class type _Geocoder = object
   method geocode : _GeocoderRequest Js.t -> (_GeocoderResult Js.t Js.js_array Js.t -> geocoderStatus -> unit) Js.callback -> unit Js.meth
 end
 
+class type _PredictionSubstring = object
+  method length : Js.number Js.t Js.readonly_prop
+  method offset : Js.number Js.t Js.readonly_prop
+end
+
+class type _PredictionTerm = object
+  method offset : Js.number Js.t Js.readonly_prop
+  method value : Js.js_string Js.t Js.readonly_prop
+end
+
+class type _QueryAutocompletePrediction = object
+  method description : Js.js_string Js.t Js.readonly_prop
+  method matched_substrings : _PredictionSubstring Js.t Js.js_array Js.t Js.readonly_prop
+  method place_id : Js.js_string Js.t Js.readonly_prop
+  method terms : _PredictionTerm Js.t Js.js_array Js.t Js.readonly_prop
+end
+
+class type _QueryAutocompletionRequest = object
+  method bounds : _LatLngBounds_or_LatLngBoundsLiteral Js.writeonly_prop
+  method input : Js.js_string Js.t Js.writeonly_prop
+  method location : _LatLng Js.t Js.writeonly_prop
+  method offset : Js.number Js.t Js.writeonly_prop
+  method radius : Js.number Js.t Js.writeonly_prop
+end
+
+class type _PlacesServiceStatus = object
+  method _INVALID_REQUEST : placesServiceStatus Js.readonly_prop
+  method _OK : placesServiceStatus Js.readonly_prop
+  method _OVER_QUERY_LIMIT : placesServiceStatus Js.readonly_prop
+  method _REQUEST_DENIED : placesServiceStatus Js.readonly_prop
+  method _UNKNOWN_ERROR : placesServiceStatus Js.readonly_prop
+  method _ZERO_RESULTS : placesServiceStatus Js.readonly_prop
+end
+
+class type _AutocompletePrediction = object
+  method description : Js.js_string Js.t Js.readonly_prop
+  method matched_substrings : _PredictionSubstring Js.t Js.js_array Js.t Js.readonly_prop
+  method place_id : Js.js_string Js.t Js.readonly_prop
+  method terms : _PredictionTerm Js.t Js.js_array Js.t Js.readonly_prop
+  method types : Js.js_string Js.t Js.js_array Js.t Js.readonly_prop
+end
+
+class type _PlaceDetailsRequest = object
+  method placeId : Js.js_string Js.t Js.readonly_prop
+end
+
+class type _PlaceAspectRating = object
+  method rating : Js.number Js.t Js.readonly_prop
+  method _type : Js.js_string Js.t Js.readonly_prop
+end
+
+class type _ComponentRestrictions = object
+  method country : Js.js_string Js.t Js.writeonly_prop
+end
+
+class type _AutocompletionRequest = object
+  method bounds : _LatLngBounds_or_LatLngBoundsLiteral Js.writeonly_prop
+  method componentRestrictions : _ComponentRestrictions Js.t Js.writeonly_prop
+  method input : Js.js_string Js.t Js.writeonly_prop
+  method location : _LatLng Js.t Js.writeonly_prop
+  method offset : Js.number Js.t Js.writeonly_prop
+  method radius : Js.number Js.t Js.writeonly_prop
+  method types : Js.js_string Js.t Js.js_array Js.t Js.writeonly_prop
+end
+
+class type _AutocompleteService = object
+  method getPlacePredictions : _AutocompletionRequest Js.t -> (_AutocompletePrediction Js.t Js.js_array Js.t -> _PlacesServiceStatus Js.t -> unit Js.t) Js.callback -> unit Js.meth
+  method getQueryPredictions : _QueryAutocompletionRequest Js.t -> (_QueryAutocompletePrediction Js.t Js.js_array Js.t -> _PlacesServiceStatus Js.t -> unit Js.t) Js.callback -> unit Js.meth
+end
+
+class type _AutocompleteOptions = object
+  method bounds : _LatLngBounds_or_LatLngBoundsLiteral Js.writeonly_prop
+  method componentRestrictions : _ComponentRestrictions Js.t Js.writeonly_prop
+  method types : Js.js_string Js.t Js.js_array Js.t Js.writeonly_prop
+end
+
+class type _PlaceReview = object
+  method aspects : _PlaceAspectRating Js.t Js.js_array Js.t Js.readonly_prop
+  method author_name : Js.js_string Js.t Js.readonly_prop
+  method author_url : Js.js_string Js.t Js.readonly_prop
+  method language : Js.js_string Js.t Js.readonly_prop
+  method text : Js.js_string Js.t Js.readonly_prop
+end
+
+class type _PhotoOptions = object
+  method maxHeight : Js.number Js.t Js.writeonly_prop
+  method maxWidth : Js.number Js.t Js.writeonly_prop
+end
+
+class type _PlacePhoto = object
+  method getUrl : _PhotoOptions Js.t -> Js.js_string Js.t Js.meth
+  method height : Js.number Js.t Js.readonly_prop
+  method html_attributions : Js.js_string Js.t Js.js_array Js.t Js.readonly_prop
+  method width : Js.number Js.t Js.readonly_prop
+end
+
+class type _PlaceGeometry = object
+  method location : _LatLng Js.t Js.readonly_prop
+  method viewport : _LatLngBounds Js.t Js.readonly_prop
+end
+
+class type _PlaceResult = object
+  method address_components : _GeocoderAddressComponent Js.t Js.js_array Js.t Js.readonly_prop
+  method aspects : _PlaceAspectRating Js.t Js.js_array Js.t Js.readonly_prop
+  method formatted_address : Js.js_string Js.t Js.readonly_prop
+  method formatted_phone_number : Js.js_string Js.t Js.readonly_prop
+  method geometry : _PlaceGeometry Js.t Js.readonly_prop
+  method html_attributions : Js.js_string Js.t Js.js_array Js.t Js.readonly_prop
+  method icon : Js.js_string Js.t Js.readonly_prop
+  method international_phone_number : Js.js_string Js.t Js.readonly_prop
+  method name : Js.js_string Js.t Js.readonly_prop
+  method permanently_closed : bool Js.t Js.readonly_prop
+  method photos : _PlacePhoto Js.t Js.js_array Js.t Js.readonly_prop
+  method place_id : Js.js_string Js.t Js.readonly_prop
+  method price_level : Js.number Js.t Js.readonly_prop
+  method rating : Js.number Js.t Js.readonly_prop
+  method reviews : _PlaceReview Js.t Js.js_array Js.t Js.readonly_prop
+  method types : Js.js_string Js.t Js.js_array Js.t Js.readonly_prop
+  method url : Js.js_string Js.t Js.readonly_prop
+  method utc_offset : Js.number Js.t Js.readonly_prop
+  method vicinity : Js.js_string Js.t Js.readonly_prop
+  method website : Js.js_string Js.t Js.readonly_prop
+end
+
+class type _Autocomplete = object
+  inherit _MVCObject
+  method getBounds : _LatLngBounds Js.t Js.meth
+  method getPlace : _PlaceResult Js.t Js.meth
+  method setBounds : _LatLngBounds_or_LatLngBoundsLiteral -> unit Js.meth
+  method setComponentRestrictions : _ComponentRestrictions Js.t -> unit Js.meth
+  method setTypes : Js.js_string Js.t Js.js_array Js.t -> unit Js.meth
+end
+
 let dataFeature =
   (Js.Unsafe.js_expr "google.maps.Data")##_Feature
 
@@ -1111,6 +1245,12 @@ let kmlLayer =
 
 let geocoder =
   (Js.Unsafe.js_expr "google.maps")##_Geocoder
+
+let autocomplete =
+  (Js.Unsafe.js_expr "google.maps")##_Autocomplete
+
+let autocompleteService =
+  (Js.Unsafe.js_expr "google.maps")##_AutocompleteService
 
 let emptyMapOptions () = Js.Unsafe.obj [||]
 
