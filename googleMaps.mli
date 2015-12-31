@@ -164,14 +164,12 @@ end
 class type _Size = object
   method equals : _Size Js.t -> bool Js.t Js.meth
   method toString : Js.js_string Js.t Js.meth
-
   method height : Js.number Js.t Js.readonly_prop
   method width : Js.number Js.t Js.readonly_prop
 end
 
 class type _StreetViewTileData = object
   method getTileUrl : Js.js_string Js.t -> Js.number Js.t -> Js.number Js.t -> Js.number Js.t -> Js.js_string Js.t Js.meth
-
   method centerHeading : Js.number Js.t Js.readonly_prop
   method tileSize : _Size Js.t Js.readonly_prop
   method worldSize : _Size Js.t Js.readonly_prop
@@ -670,25 +668,34 @@ class type _MarkerPlace = object
   method query : Js.js_string Js.t Js.prop
 end
 
+class type _Icon = object
+  method anchor : _Point Js.t Js.writeonly_prop
+  method labelOrigin : _Point Js.t Js.writeonly_prop
+  method origin : _Point Js.t Js.writeonly_prop
+  method scaledSize : _Size Js.t Js.writeonly_prop
+  method size : _Size Js.t Js.writeonly_prop
+  method url : Js.js_string Js.t Js.writeonly_prop
+end
+
 class type _MarkerOptions = object
-  method anchorPoint : _Point Js.t Js.prop
-  method animation : animation Js.prop
-  method attribution : _Attribution Js.t Js.prop
-  method clickable : bool Js.t Js.prop
-  method crossOnDrag : bool Js.t Js.prop
-  method cursor : Js.js_string Js.t Js.prop
-  method draggable : bool Js.t Js.prop
-  method icon : string_or_Icon_or_Symbol Js.prop
-  method label : string_or_MarkerLabel Js.prop
-  method map : (* _Map_or_StreetViewPanorama *) _Map Js.t Js.prop
-  method opacity : Js.number Js.t Js.prop
-  method optimized : bool Js.t Js.prop
-  method place : _MarkerPlace Js.t Js.prop
-  method position : _LatLng Js.t Js.prop
-  method shape : _MarkerShape Js.t Js.prop
-  method title : Js.js_string Js.t Js.prop
-  method visible : bool Js.t Js.prop
-  method zIndex : Js.number Js.t Js.prop
+  method anchorPoint : _Point Js.t Js.writeonly_prop
+  method animation : animation Js.writeonly_prop
+  method attribution : _Attribution Js.t Js.writeonly_prop
+  method clickable : bool Js.t Js.writeonly_prop
+  method crossOnDrag : bool Js.t Js.writeonly_prop
+  method cursor : Js.js_string Js.t Js.writeonly_prop
+  method draggable : bool Js.t Js.writeonly_prop
+  method icon : (* string_or_Icon_or_Symbol *) _Icon Js.t Js.writeonly_prop
+  method label : string_or_MarkerLabel Js.writeonly_prop
+  method map : (* _Map_or_StreetViewPanorama *) _Map Js.t Js.writeonly_prop
+  method opacity : Js.number Js.t Js.writeonly_prop
+  method optimized : bool Js.t Js.writeonly_prop
+  method place : _MarkerPlace Js.t Js.writeonly_prop
+  method position : _LatLng Js.t Js.writeonly_prop
+  method shape : _MarkerShape Js.t Js.writeonly_prop
+  method title : Js.js_string Js.t Js.writeonly_prop
+  method visible : bool Js.t Js.writeonly_prop
+  method zIndex : Js.number Js.t Js.writeonly_prop
 end
 
 class type _PolylineOptions = object
@@ -896,15 +903,6 @@ end
 
 class type _DirectionsService = object
   method route : _DirectionsRequest Js.t -> (_DirectionsResult Js.t -> directionsStatus -> unit) Js.callback -> unit Js.meth
-end
-
-class type _Icon = object
-  method anchor : _Point Js.t Js.writeonly_prop
-  method labelOrigin : _Point Js.t Js.writeonly_prop
-  method origin : _Point Js.t Js.writeonly_prop
-  method scaledSize : _Size Js.t Js.writeonly_prop
-  method size : _Size Js.t Js.writeonly_prop
-  method url : Js.js_string Js.t Js.writeonly_prop
 end
 
 class type _MarkerLabel = object
@@ -1312,6 +1310,8 @@ val emptyDirectionsRequest : unit -> _DirectionsRequest Js.t
 
 val emptyPlace : unit -> _Place Js.t
 
+val emptyMarkerShape : unit -> _MarkerShape Js.t
+
 val emptyMarkerOptions : unit -> _MarkerOptions Js.t
 
 val emptyInfoWindowOptions : unit -> _InfoWindowOptions Js.t
@@ -1323,6 +1323,8 @@ val emptyCircleOptions : unit -> _CircleOptions Js.t
 val emptyPolylineOptions : unit -> _PolylineOptions Js.t
 
 val emptySymbol : unit -> _Symbol Js.t
+
+val emptyIcon : unit -> _Icon Js.t
 
 val emptyDataStyleOptions : unit -> _Data_StyleOptions Js.t
 

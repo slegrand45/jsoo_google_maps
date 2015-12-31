@@ -13,6 +13,7 @@ let demo () =
   let _ = Georss.demo doc in
   let _ = Geocoding.demo doc in
   let _ = Place_searches.demo doc in
+  let _ = Icon_complex.demo doc in
   ()
 
 let main _ =

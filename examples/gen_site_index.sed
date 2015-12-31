@@ -114,3 +114,13 @@
   {% endhighlight %}
   d
 }
+
+/<!--ICON_COMPLEX-->/ {
+  i \
+  {% highlight ocaml %}
+  r icon_complex.ml
+  a \
+  \
+  {% endhighlight %}
+  d
+}
