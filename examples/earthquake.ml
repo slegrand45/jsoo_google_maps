@@ -68,7 +68,7 @@ let demo doc =
   let data = jsnew GM.data(Js.undefined) in
   let styleFeature (feature:GM._Data_Feature Js.t) =
     let mag = Js.Optdef.get feature##getProperty(Js.string "mag")
-      (fun () -> 0.)
+        (fun () -> 0.)
     in
     let interpolateHsl lowHsl highHsl fraction =
       let color = Array.make 3 0. in
@@ -88,7 +88,7 @@ let demo doc =
     let minMag = 1. in
     let maxMag = 6. in
     let fraction = (Js.math##min(mag, maxMag) -. minMag)
-      /. (maxMag -. minMag)
+                   /. (maxMag -. minMag)
     in
     let color = interpolateHsl low high fraction in
 
@@ -110,6 +110,6 @@ let demo doc =
   let () = data##setMap(map) in
   let () = map##data <- data in
   let () = Js.Unsafe.global##eqfeed_callback <- Js.wrap_callback 
-    (fun v -> map##data##addGeoJson(v, Js.undefined))
+        (fun v -> map##data##addGeoJson(v, Js.undefined))
   in
   ()

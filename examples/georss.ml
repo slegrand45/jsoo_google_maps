@@ -14,7 +14,7 @@ let demo doc =
 
   let options = GM.emptyKmlLayerOptions() in
   let () =
-  	options##url <- Js.string "http://api.flickr.com/services/feeds/geo/?g=322338@N20&lang=en-us&format=feed-georss"
+    options##url <- Js.string "http://api.flickr.com/services/feeds/geo/?g=322338@N20&lang=en-us&format=feed-georss"
   in
   let georssLayer = jsnew GM.kmlLayer(Js.def options) in
   let () = georssLayer##setMap(map) in

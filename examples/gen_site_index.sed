@@ -104,3 +104,13 @@
   {% endhighlight %}
   d
 }
+
+/<!--PLACE_SEARCHES-->/ {
+  i \
+  {% highlight ocaml %}
+  r place_searches.ml
+  a \
+  \
+  {% endhighlight %}
+  d
+}

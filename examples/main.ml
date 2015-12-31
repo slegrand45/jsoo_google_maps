@@ -12,6 +12,7 @@ let demo () =
   let _ = Earthquake.demo doc in
   let _ = Georss.demo doc in
   let _ = Geocoding.demo doc in
+  let _ = Place_searches.demo doc in
   ()
 
 let main _ =

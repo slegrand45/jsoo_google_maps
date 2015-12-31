@@ -16,6 +16,7 @@ type _DataFeature_or_DataFeatureOptions
 type _DataStylingFunction_or_DataStyleOptions
 type number_or_string
 type _DataGeometry_or_LatLng_or_LatLngLiteral
+type _HTMLDivElement_or_Map
 
 type mapTypeId
 type controlPosition
@@ -38,6 +39,7 @@ type kmlLayerStatus
 type geocoderStatus
 type geocoderLocationType
 type placesServiceStatus
+type rankBy
 
 class type _LatLngLiteral = object
   method lat : Js.number Js.t Js.prop
@@ -225,6 +227,19 @@ end
 class type _MapsEventListener = object
 
 end
+
+(*
+class type _Event = object
+  method addDomListener : 'a -> Js.js_string Js.t -> 'b Js.callback Js.optdef -> bool Js.t Js.optdef -> _MapsEventListener Js.t
+  method addDomListenerOnce : 'a -> Js.js_string Js.t -> 'b Js.callback Js.optdef -> bool Js.t Js.optdef -> _MapsEventListener Js.t
+  method addListener : 'a -> Js.js_string Js.t -> 'b Js.callback Js.optdef -> _MapsEventListener Js.t
+  method addListenerOnce : 'a -> Js.js_string Js.t -> 'b Js.callback Js.optdef -> _MapsEventListener Js.t
+  method clearInstanceListeners : 'a -> unit Js.t
+  method clearListeners : 'a -> Js.js_string Js.t -> unit Js.t
+  method removeListener : _MapsEventListener Js.t -> unit Js.t
+  method trigger : 'a -> Js.js_string Js.t -> (* var_args:* *) 'b -> unit Js.t
+end
+*)
 
 class type _MVCObject = object
   method addListener : Js.js_string Js.t -> 'a Js.callback -> _MapsEventListener Js.t Js.meth
@@ -1122,8 +1137,8 @@ class type _AutocompletionRequest = object
 end
 
 class type _AutocompleteService = object
-  method getPlacePredictions : _AutocompletionRequest Js.t -> (_AutocompletePrediction Js.t Js.js_array Js.t -> _PlacesServiceStatus Js.t -> unit Js.t) Js.callback -> unit Js.meth
-  method getQueryPredictions : _QueryAutocompletionRequest Js.t -> (_QueryAutocompletePrediction Js.t Js.js_array Js.t -> _PlacesServiceStatus Js.t -> unit Js.t) Js.callback -> unit Js.meth
+  method getPlacePredictions : _AutocompletionRequest Js.t -> (_AutocompletePrediction Js.t Js.js_array Js.t -> _PlacesServiceStatus Js.t -> unit) Js.callback -> unit Js.meth
+  method getQueryPredictions : _QueryAutocompletionRequest Js.t -> (_QueryAutocompletePrediction Js.t Js.js_array Js.t -> _PlacesServiceStatus Js.t -> unit) Js.callback -> unit Js.meth
 end
 
 class type _AutocompleteOptions = object
@@ -1189,6 +1204,53 @@ class type _Autocomplete = object
   method setTypes : Js.js_string Js.t Js.js_array Js.t -> unit Js.meth
 end
 
+class type _RankBy = object
+  method _DISTANCE : rankBy Js.readonly_prop
+  method _PROMINENCE : rankBy Js.readonly_prop
+end
+
+class type _PlaceSearchPagination = object
+  method nextPage : unit Js.meth
+  method hasNextPage : bool Js.t Js.readonly_prop
+end
+
+class type _TextSearchRequest = object
+  method bounds : _LatLngBounds_or_LatLngBoundsLiteral Js.t Js.writeonly_prop
+  method location : (* _LatLng_or_LatLngLiteral *) _LatLng Js.t Js.writeonly_prop
+  method query : Js.js_string Js.t Js.writeonly_prop
+  method radius : Js.number Js.t Js.writeonly_prop
+  method types : Js.js_string Js.t Js.js_array Js.t Js.writeonly_prop
+end
+
+class type _RadarSearchRequest = object
+  method bounds : _LatLngBounds_or_LatLngBoundsLiteral Js.t Js.writeonly_prop
+  method keyword : Js.js_string Js.t Js.writeonly_prop
+  method location : (* _LatLng_or_LatLngLiteral *) _LatLng Js.t Js.writeonly_prop
+  method name : Js.js_string Js.t Js.writeonly_prop
+  method radius : Js.number Js.t Js.writeonly_prop
+  method types : Js.js_string Js.t Js.js_array Js.t Js.writeonly_prop
+end
+
+class type _PlaceSearchRequest = object
+  method bounds : _LatLngBounds_or_LatLngBoundsLiteral Js.t Js.writeonly_prop
+  method keyword : Js.js_string Js.t Js.writeonly_prop
+  method location : (* _LatLng_or_LatLngLiteral *) _LatLng Js.t Js.writeonly_prop
+  method maxPriceLevel : Js.number Js.t Js.writeonly_prop
+  method minPriceLevel : Js.number Js.t Js.writeonly_prop
+  method name : Js.js_string Js.t Js.writeonly_prop
+  method openNow : bool Js.t Js.writeonly_prop
+  method radius : Js.number Js.t Js.writeonly_prop
+  method rankBy : _RankBy Js.t Js.writeonly_prop
+  method types : Js.js_string Js.t Js.js_array Js.t Js.writeonly_prop
+end
+
+class type _PlacesService = object
+  method getDetails : _PlaceDetailsRequest Js.t -> (_PlaceResult Js.t -> placesServiceStatus -> unit) Js.callback -> unit Js.meth
+  method nearbySearch : _PlaceSearchRequest Js.t -> (_PlaceResult Js.t Js.js_array Js.t -> placesServiceStatus -> _PlaceSearchPagination Js.t -> unit) Js.callback -> unit Js.meth
+  method radarSearch : _RadarSearchRequest Js.t -> (_PlaceResult Js.t Js.js_array Js.t -> placesServiceStatus -> unit) Js.callback -> unit Js.meth
+  method textSearch : _TextSearchRequest Js.t -> (_PlaceResult Js.t Js.js_array Js.t -> placesServiceStatus -> _PlaceSearchPagination Js.t -> unit) Js.callback -> unit Js.meth
+end
+
 let dataFeature =
   (Js.Unsafe.js_expr "google.maps.Data")##_Feature
 
@@ -1252,6 +1314,9 @@ let autocomplete =
 let autocompleteService =
   (Js.Unsafe.js_expr "google.maps")##_AutocompleteService
 
+let placesService =
+  (Js.Unsafe.js_expr "google.maps.places")##_PlacesService
+
 let emptyMapOptions () = Js.Unsafe.obj [||]
 
 let emptyMapTypeStyle () = Js.Unsafe.obj [||]
@@ -1281,6 +1346,19 @@ let emptyDataStyleOptions () = Js.Unsafe.obj [||]
 let emptyKmlLayerOptions () = Js.Unsafe.obj [||]
 
 let emptyGeocoderRequest () = Js.Unsafe.obj [||]
+
+let emptyPlaceDetailsRequest () = Js.Unsafe.obj [||]
+
+let emptyPlaceSearchRequest () = Js.Unsafe.obj [||]
+
+let emptyRadarSearchRequest () = Js.Unsafe.obj [||]
+
+let emptyTextSearchRequest () = Js.Unsafe.obj [||]
+
+(*
+let event =
+  (Js.Unsafe.js_expr "google.maps")##_Event
+*)
 
 let mapTypeId =
   (Js.Unsafe.js_expr "google.maps")##_MapTypeId
@@ -1338,3 +1416,9 @@ let geocoderStatus =
 
 let geocoderLocationType =
   (Js.Unsafe.js_expr "google.maps")##_GeocoderLocationType
+
+let placesServiceStatus =
+  (Js.Unsafe.js_expr "google.maps.places")##_PlacesServiceStatus
+
+let rankBy =
+  (Js.Unsafe.js_expr "google.maps.places")##_RankBy
