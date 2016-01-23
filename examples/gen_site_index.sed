@@ -124,3 +124,13 @@
   {% endhighlight %}
   d
 }
+
+/<!--MAP_GEOLOCATION-->/ {
+  i \
+  {% highlight ocaml %}
+  r map_geolocation.ml
+  a \
+  \
+  {% endhighlight %}
+  d
+}
