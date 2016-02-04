@@ -1250,70 +1250,70 @@ class type _PlacesService = object
 end
 
 let dataFeature =
-  (Js.Unsafe.js_expr "google.maps.Data")##_Feature
+  (Js.Unsafe.js_expr "google.maps.Data")##._Feature
 
 let mvcObject =
-  (Js.Unsafe.js_expr "google.maps")##_MVCObject
+  (Js.Unsafe.js_expr "google.maps")##._MVCObject
 
 let map =
-  (Js.Unsafe.js_expr "google.maps")##_Map
+  (Js.Unsafe.js_expr "google.maps")##._Map
 
 let latLng =
-  (Js.Unsafe.js_expr "google.maps")##_LatLng
+  (Js.Unsafe.js_expr "google.maps")##._LatLng
 
 let latLngBounds =
-  (Js.Unsafe.js_expr "google.maps")##_LatLngBounds
+  (Js.Unsafe.js_expr "google.maps")##._LatLngBounds
 
 let streetViewPanorama =
-  (Js.Unsafe.js_expr "google.maps")##_StreetViewPanorama
+  (Js.Unsafe.js_expr "google.maps")##._StreetViewPanorama
 
 let size =
-  (Js.Unsafe.js_expr "google.maps")##_Size
+  (Js.Unsafe.js_expr "google.maps")##._Size
 
 let point =
-  (Js.Unsafe.js_expr "google.maps")##_Point
+  (Js.Unsafe.js_expr "google.maps")##._Point
 
 let directionsRenderer =
-  (Js.Unsafe.js_expr "google.maps")##_DirectionsRenderer
+  (Js.Unsafe.js_expr "google.maps")##._DirectionsRenderer
 
 let infoWindow =
-  (Js.Unsafe.js_expr "google.maps")##_InfoWindow
+  (Js.Unsafe.js_expr "google.maps")##._InfoWindow
 
 let directionsService =
-  (Js.Unsafe.js_expr "google.maps")##_DirectionsService
+  (Js.Unsafe.js_expr "google.maps")##._DirectionsService
 
 let marker =
-  (Js.Unsafe.js_expr "google.maps")##_Marker
+  (Js.Unsafe.js_expr "google.maps")##._Marker
 
 let polyline =
-  (Js.Unsafe.js_expr "google.maps")##_Polyline
+  (Js.Unsafe.js_expr "google.maps")##._Polyline
 
 let rectangle =
-  (Js.Unsafe.js_expr "google.maps")##_Rectangle
+  (Js.Unsafe.js_expr "google.maps")##._Rectangle
 
 let circle =
-  (Js.Unsafe.js_expr "google.maps")##_Circle
+  (Js.Unsafe.js_expr "google.maps")##._Circle
 
 let data =
-  (Js.Unsafe.js_expr "google.maps")##_Data
+  (Js.Unsafe.js_expr "google.maps")##._Data
 
 let mapTypeRegistry =
-  (Js.Unsafe.js_expr "google.maps")##_MapTypeRegistry
+  (Js.Unsafe.js_expr "google.maps")##._MapTypeRegistry
 
 let kmlLayer =
-  (Js.Unsafe.js_expr "google.maps")##_KmlLayer
+  (Js.Unsafe.js_expr "google.maps")##._KmlLayer
 
 let geocoder =
-  (Js.Unsafe.js_expr "google.maps")##_Geocoder
+  (Js.Unsafe.js_expr "google.maps")##._Geocoder
 
 let autocomplete =
-  (Js.Unsafe.js_expr "google.maps")##_Autocomplete
+  (Js.Unsafe.js_expr "google.maps")##._Autocomplete
 
 let autocompleteService =
-  (Js.Unsafe.js_expr "google.maps")##_AutocompleteService
+  (Js.Unsafe.js_expr "google.maps")##._AutocompleteService
 
 let placesService =
-  (Js.Unsafe.js_expr "google.maps.places")##_PlacesService
+  (Js.Unsafe.js_expr "google.maps.places")##._PlacesService
 
 let emptyMapOptions () = Js.Unsafe.obj [||]
 
@@ -1363,64 +1363,64 @@ let event =
 *)
 
 let mapTypeId =
-  (Js.Unsafe.js_expr "google.maps")##_MapTypeId
+  (Js.Unsafe.js_expr "google.maps")##._MapTypeId
 
 let controlPosition =
-  (Js.Unsafe.js_expr "google.maps")##_ControlPosition
+  (Js.Unsafe.js_expr "google.maps")##._ControlPosition
 
 let mapTypeControlStyle =
-  (Js.Unsafe.js_expr "google.maps")##_MapTypeControlStyle
+  (Js.Unsafe.js_expr "google.maps")##._MapTypeControlStyle
 
 let scaleControlStyle =
-  (Js.Unsafe.js_expr "google.maps")##_ScaleControlStyle
+  (Js.Unsafe.js_expr "google.maps")##._ScaleControlStyle
 
 let streetViewStatus =
-  (Js.Unsafe.js_expr "google.maps")##_StreetViewStatus
+  (Js.Unsafe.js_expr "google.maps")##._StreetViewStatus
 
 let zoomControlStyle =
-  (Js.Unsafe.js_expr "google.maps")##_ZoomControlStyle
+  (Js.Unsafe.js_expr "google.maps")##._ZoomControlStyle
 
 let travelMode =
-  (Js.Unsafe.js_expr "google.maps")##_TravelMode
+  (Js.Unsafe.js_expr "google.maps")##._TravelMode
 
 let vehicleType =
-  (Js.Unsafe.js_expr "google.maps")##_VehicleType
+  (Js.Unsafe.js_expr "google.maps")##._VehicleType
 
 let animation =
-  (Js.Unsafe.js_expr "google.maps")##_Animation
+  (Js.Unsafe.js_expr "google.maps")##._Animation
 
 let transitMode =
-  (Js.Unsafe.js_expr "google.maps")##_TransitMode
+  (Js.Unsafe.js_expr "google.maps")##._TransitMode
 
 let transitRoutePreference =
-  (Js.Unsafe.js_expr "google.maps")##_TransitRoutePreference
+  (Js.Unsafe.js_expr "google.maps")##._TransitRoutePreference
 
 let unitSystem =
-  (Js.Unsafe.js_expr "google.maps")##_UnitSystem
+  (Js.Unsafe.js_expr "google.maps")##._UnitSystem
 
 let trafficModel =
-  (Js.Unsafe.js_expr "google.maps")##_TrafficModel
+  (Js.Unsafe.js_expr "google.maps")##._TrafficModel
 
 let directionsStatus =
-  (Js.Unsafe.js_expr "google.maps")##_DirectionsStatus
+  (Js.Unsafe.js_expr "google.maps")##._DirectionsStatus
 
 let markerConstant =
-  (Js.Unsafe.js_expr "google.maps")##_Marker
+  (Js.Unsafe.js_expr "google.maps")##._Marker
 
 let symbolPath =
-  (Js.Unsafe.js_expr "google.maps")##_SymbolPath
+  (Js.Unsafe.js_expr "google.maps")##._SymbolPath
 
 let kmlLayerStatus =
-  (Js.Unsafe.js_expr "google.maps")##_KmlLayerStatus
+  (Js.Unsafe.js_expr "google.maps")##._KmlLayerStatus
 
 let geocoderStatus =
-  (Js.Unsafe.js_expr "google.maps")##_GeocoderStatus
+  (Js.Unsafe.js_expr "google.maps")##._GeocoderStatus
 
 let geocoderLocationType =
-  (Js.Unsafe.js_expr "google.maps")##_GeocoderLocationType
+  (Js.Unsafe.js_expr "google.maps")##._GeocoderLocationType
 
 let placesServiceStatus =
-  (Js.Unsafe.js_expr "google.maps.places")##_PlacesServiceStatus
+  (Js.Unsafe.js_expr "google.maps.places")##._PlacesServiceStatus
 
 let rankBy =
-  (Js.Unsafe.js_expr "google.maps.places")##_RankBy
+  (Js.Unsafe.js_expr "google.maps.places")##._RankBy

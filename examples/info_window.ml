@@ -5,12 +5,12 @@ let demo doc =
     Js.Opt.get (doc##getElementById(Js.string "demo_info_window"))
       (fun () -> assert false)
   in
-  let uluru = jsnew GM.latLng(Js.number_of_float (-25.363), Js.number_of_float 131.044, Js.undefined) in
+  let uluru = new%js GM.latLng (Js.number_of_float (-25.363)) (Js.number_of_float 131.044) Js.undefined in
 
   let options = GM.emptyMapOptions() in
-  let () = options##center <- uluru in
-  let () = options##zoom <- Js.number_of_float 4. in
-  let map = jsnew GM.map(element, options) in
+  let () = options##.center := uluru in
+  let () = options##.zoom := Js.number_of_float 4. in
+  let map = new%js GM.map element options in
 
   let content = "<div id=\"content\"> \
                  <div id=\"siteNotice\"></div> \
@@ -34,15 +34,15 @@ let demo doc =
   in
 
   let options = GM.emptyInfoWindowOptions() in
-  let () = options##content <- Js.string content in
-  let info_window = jsnew GM.infoWindow(Js.def options) in
+  let () = options##.content := Js.string content in
+  let info_window = new%js GM.infoWindow (Js.def options) in
 
   let options = GM.emptyMarkerOptions() in
-  let () = options##map <- map in
-  let () = options##position <- uluru in
-  let () = options##title <- Js.string "Uluru (Ayers Rock)" in
-  let marker = jsnew GM.marker(Js.def options) in
+  let () = options##.map := map in
+  let () = options##.position := uluru in
+  let () = options##.title := Js.string "Uluru (Ayers Rock)" in
+  let marker = new%js GM.marker (Js.def options) in
   let marker' = (marker :> GM._MVCObject Js.t) in
 
-  let f () = info_window##_open(Js.def map, Js.def marker') in
-  marker##addListener(Js.string "click", Js.wrap_callback f)
+  let f () = info_window##_open (Js.def map) (Js.def marker') in
+  marker##addListener (Js.string "click") (Js.wrap_callback f)
